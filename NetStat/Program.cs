@@ -9,12 +9,15 @@ namespace NetStat
     class Program
     {
         //Core RNG
-        static Random rng = new Random(DateTime.Now.Millisecond * DateTime.Now.Second);
+        public static Random rng = new Random(DateTime.Now.Millisecond * DateTime.Now.Second);
 
         //List Sources
-        static List<string> States = new List<string> { "ESTABLISHED", "CLOSE_WAIT", "TIME_WAIT", "OPEN_WAIT", "SPIN_WAIT", "TICK_WAIT", "LAG_WAIT" };
+        static List<string> States = new List<string> //Multiple 'ESTABLISHED' to increase chances
+        { "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED",
+            "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED",
+            "CLOSE_WAIT", "TIME_WAIT", "OPEN_WAIT", "SPIN_WAIT", "TICK_WAIT", "LAG_WAIT" };
         static List<string> LocalAddr = new List<string> {"127.0.0.1","192.168.0.20" };
-        static List<string> ForeignAddr = new List<string> //Multiple %rand to increase chances
+        static List<string> ForeignAddr = new List<string> //Multiple '%rand' to increase chances
         { "choice", "uksm", "wasd", "egx", "i66", "loki6444266", "z115m", "br", "phyra76534",
             "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand",
             "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand" };
@@ -29,16 +32,18 @@ namespace NetStat
             int count = rng.Next(3, 150);
             for (int i = 0; i < count; i++)
             {
-                entries.Add(new entry(LocalAddr[rng.Next(1, LocalAddr.Count - 1)] + ":" + rng.Next(LPortLow, LPortHigh), ForeignAddr[rng.Next(1, ForeignAddr.Count - 1)] + ":" + rng.Next(LPortLow, LPortHigh), States[rng.Next(1, States.Count - 1)], rng.Next(1, 1000)));
+                entries.Add(new entry(LocalAddr[rng.Next(0, LocalAddr.Count - 1)] + ":" + rng.Next(LPortLow, LPortHigh), ForeignAddr[rng.Next(0, ForeignAddr.Count - 1)], rng.Next(LPortLow, LPortHigh), States[rng.Next(1, States.Count - 1)], rng.Next(1, 1000)));
             }
 
             foreach (entry e in entries)
             {
                 Thread.Sleep(e.delay);
-                Console.WriteLine("  TCP    " + e.local + "  " + e.foreign + "  " + e.state);
+                Console.Write("  TCP    " + e.local); WriteSpaces(23 - e.local.ToCharArray().Length);
+                Console.Write(e.foreign); WriteSpaces(23 - e.foreign.ToCharArray().Length);
+                Console.WriteLine(e.state);
             }
 
-            Console.WriteLine("\n\n  Clear all active connections? (Y/N)");
+            Console.Write("\n\n  Clear all active connections? (Y/N) ");
             int cl = Console.CursorLeft;
             bool check = false;
             while (!check)
@@ -63,22 +68,34 @@ namespace NetStat
                         break;
                 }
             }
-            Console.WriteLine("Removing connections...");
+            Console.WriteLine("  Removing connections...");
+            Console.CursorLeft = 2;
             foreach (entry e in entries)
             {
                 Console.Write(e.foreign+"                                         ");
-                Thread.Sleep(500);
+                Console.CursorLeft = 2;
+                Thread.Sleep(250);
             }
             Console.WriteLine("\n\nAll connections closed!\n");
+        }
+
+        static void WriteSpaces(int remainder)
+        {
+            for (int i = 0; i < remainder; i++)
+            {
+                Console.Write(" ");
+            }
         }
     }
 
     class entry
     {
         public string local; public string foreign; public string state; public int delay;
-        public entry(string l, string f, string s, int d)
+        public entry(string l, string f, int fp, string s, int d)
         {
-            local = l; foreign = f; state = s; delay = d;
+            local = l; state = s; delay = d;
+            if (f == "%rand") { foreign = Program.rng.Next(10, 240) + "." + Program.rng.Next(1, 255) + "." + Program.rng.Next(1, 255) + "." + Program.rng.Next(1, 255) + ":" + fp; }
+            else { foreign = f + ":" + fp; }
         }
     }
 }
