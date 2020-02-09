@@ -26,7 +26,7 @@ namespace NetStat
         //Main Code
         static void Main(string[] args)
         {
-            Console.WriteLine("\nActive Connections\n\n  Proto  Local Address          Foreign Address        State\n");
+            Console.WriteLine("\nActive Connections\n\n  Proto  Local Address     Foreign Address        State\n");
 
             if (!CheckFile())
             {
@@ -39,7 +39,7 @@ namespace NetStat
                 foreach (entry e in entries)
                 {
                     Thread.Sleep(e.delay);
-                    Console.Write("  TCP    " + e.local); WriteSpaces(23 - e.local.ToCharArray().Length);
+                    Console.Write("  TCP    " + e.local); WriteSpaces(18 - e.local.ToCharArray().Length);
                     Console.Write(e.foreign); WriteSpaces(23 - e.foreign.ToCharArray().Length);
                     Console.WriteLine(e.state);
                 }
