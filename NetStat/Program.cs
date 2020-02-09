@@ -15,31 +15,28 @@ namespace NetStat
         { "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED",
             "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED", "ESTABLISHED",
             "CLOSE_WAIT", "TIME_WAIT", "OPEN_WAIT", "SPIN_WAIT", "TICK_WAIT", "LAG_WAIT" };
-        static List<string> LocalAddr = new List<string> {"127.0.0.1","192.168.0.20" };
-        static List<string> ForeignAddr = new List<string> //Multiple '%rand' to increase chances
-        { "choice", "uksm", "wasd", "egx", "i66", "loki6444266", "z115m", "br", "phyra76534",
-            "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand",
-            "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand", "%rand" };
+        static List<string> LocalAddr = new List<string> {"127.0.0.1", "192.168.0.20", "192.168.0.1" };
+        static List<string> ForeignAddr = new List<string> { "%rand" };
         static int LPortHigh = 99999; static int LPortLow = 1;
         static List<entry> entries = new List<entry>(); 
 
         //Main Code
         static void Main(string[] args)
         {
-            Console.WriteLine("\nActive Connections\n\n  Proto  Local Address     Foreign Address        State\n");
+            Console.WriteLine("\nActive Connections\n\n  Proto  Local Address        Foreign Address        State\n");
 
             if (!CheckFile())
             {
                 int count = rng.Next(3, 150);
                 for (int i = 0; i < count; i++)
                 {
-                    entries.Add(new entry(LocalAddr[rng.Next(0, LocalAddr.Count - 1)] + ":" + rng.Next(LPortLow, LPortHigh), ForeignAddr[rng.Next(0, ForeignAddr.Count - 1)], rng.Next(LPortLow, LPortHigh), States[rng.Next(1, States.Count - 1)], rng.Next(1, 1000)));
+                    entries.Add(new entry(LocalAddr[rng.Next(0, LocalAddr.Count)] + ":" + rng.Next(LPortLow, LPortHigh), ForeignAddr[rng.Next(0, ForeignAddr.Count - 1)], rng.Next(LPortLow, LPortHigh), States[rng.Next(1, States.Count - 1)], rng.Next(1, 1000)));
                 }
 
                 foreach (entry e in entries)
                 {
                     Thread.Sleep(e.delay);
-                    Console.Write("  TCP    " + e.local); WriteSpaces(18 - e.local.ToCharArray().Length);
+                    Console.Write("  TCP    " + e.local); WriteSpaces(21 - e.local.ToCharArray().Length);
                     Console.Write(e.foreign); WriteSpaces(23 - e.foreign.ToCharArray().Length);
                     Console.WriteLine(e.state);
                 }
