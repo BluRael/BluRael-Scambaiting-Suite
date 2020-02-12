@@ -51,4 +51,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "D:\Google\Drive\Programming\GitHub\BluRael Scambaiting Suite\$(ProjectName)\bin\Release\$(TargetFileName)" "C:\Users\BluRael\sbtools\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
