@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStat", "NetStat\NetStat.csproj", "{B03A4F7D-96D9-4B73-B683-58A75505AB5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysKey", "SysKey\SysKey.csproj", "{65F64B3E-B0BD-4BC5-A6FF-8B196871B6BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keylogger", "Keylogger\Keylogger.csproj", "{7A0949E8-7088-4FA6-9B00-EF2A58ABA912}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B03A4F7D-96D9-4B73-B683-58A75505AB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B03A4F7D-96D9-4B73-B683-58A75505AB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B03A4F7D-96D9-4B73-B683-58A75505AB5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65F64B3E-B0BD-4BC5-A6FF-8B196871B6BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65F64B3E-B0BD-4BC5-A6FF-8B196871B6BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65F64B3E-B0BD-4BC5-A6FF-8B196871B6BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65F64B3E-B0BD-4BC5-A6FF-8B196871B6BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A0949E8-7088-4FA6-9B00-EF2A58ABA912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A0949E8-7088-4FA6-9B00-EF2A58ABA912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A0949E8-7088-4FA6-9B00-EF2A58ABA912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A0949E8-7088-4FA6-9B00-EF2A58ABA912}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
